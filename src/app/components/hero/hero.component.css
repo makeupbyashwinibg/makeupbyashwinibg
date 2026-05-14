@@ -1,0 +1,68 @@
+.hero {
+  height: 100vh;
+  background-image: url('https://images.unsplash.com/photo-1524504388940-b1c1722653e1');
+  background-size: cover;
+  background-position: center;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 80px;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+
+  max-width: 600px;
+}
+
+.hero h1 {
+  font-size: 72px;
+  color: white;
+  line-height: 1.1;
+
+  margin-bottom: 20px;
+}
+
+.hero p {
+  color: #ddd;
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.primary-btn {
+  background: #d4af37;
+  color: black;
+
+  border: none;
+  padding: 14px 28px;
+  border-radius: 30px;
+
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.secondary-btn {
+  background: transparent;
+  color: white;
+
+  border: 1px solid white;
+  padding: 14px 28px;
+  border-radius: 30px;
+
+  cursor: pointer;
+}
