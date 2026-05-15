@@ -9,3 +9,37 @@ body {
   font-family: 'Poppins', sans-serif;
   background: #0f0f0f;
 }
+
+.floating-whatsapp {
+  position: fixed;
+
+  right: 25px;
+  bottom: 25px;
+
+  width: 65px;
+  height: 65px;
+
+  border-radius: 50%;
+
+  background: #25D366;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: white;
+
+  font-size: 34px;
+
+  text-decoration: none;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+
+  z-index: 9999;
+
+  transition: 0.3s ease;
+}
+
+.floating-whatsapp:hover {
+  transform: scale(1.1);
+}

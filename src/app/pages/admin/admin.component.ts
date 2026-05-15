@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 
-import {
-  Storage,
-  ref,
-  uploadBytes,
-  getDownloadURL
-} from '@angular/fire/storage';
+import { HttpClient } from '@angular/common/http';
 
 import {
   Firestore,
   collection,
-  addDoc
+  addDoc,
+  collectionData,
+  deleteDoc,
+  doc
 } from '@angular/fire/firestore';
+
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-admin',
@@ -23,38 +23,108 @@ export class AdminComponent {
   selectedFile: any;
 
   uploadMessage = '';
-selectedCategory = 'bridal';
+
+  selectedCategory = 'bridal';
+
+  galleryItems$: Observable<any[]>;
+
   constructor(
-    private storage: Storage,
+    private http: HttpClient,
     private firestore: Firestore
-  ) {}
+  ) {
+
+    const galleryRef = collection(
+      this.firestore,
+      'gallery'
+    );
+
+    this.galleryItems$ = collectionData(
+      galleryRef,
+      {
+        idField: 'id'
+      }
+    ) as Observable<any[]>;
+  }
 
   onFileSelected(event: any) {
 
     this.selectedFile = event.target.files[0];
   }
 
-  async uploadImage() {
+  async uploadImage(fileInput: any) {
 
     if(!this.selectedFile) return;
 
-    const filePath = `gallery/${Date.now()}_${this.selectedFile.name}`;
+    const formData = new FormData();
 
-    const storageRef = ref(this.storage, filePath);
-
-    await uploadBytes(storageRef, this.selectedFile);
-
-    const imageUrl = await getDownloadURL(storageRef);
-
-    await addDoc(
-      collection(this.firestore, 'gallery'),
-      {
-        imageUrl,
-        category: this.selectedCategory,
-        createdAt: new Date()
-      }
+    formData.append(
+      'file',
+      this.selectedFile
     );
 
-    this.uploadMessage = 'Image uploaded successfully!';
+    formData.append(
+      'upload_preset',
+      'makeup_uploads'
+    );
+
+    this.uploadMessage = 'Uploading...';
+
+    this.http.post(
+      'https://api.cloudinary.com/v1_1/dwqreyolb/image/upload',
+      formData
+    ).subscribe(
+
+      async (response: any) => {
+
+        try {
+
+          const imageUrl = response.secure_url;
+
+          await addDoc(
+            collection(this.firestore, 'gallery'),
+            {
+              imageUrl,
+              category: this.selectedCategory,
+              createdAt: new Date()
+            }
+          );
+
+          this.uploadMessage = 'Image uploaded successfully!';
+
+          this.selectedFile = null;
+          fileInput.value = '';
+          setTimeout(() => {
+
+            this.uploadMessage = '';
+
+          }, 3000);
+
+        } catch(error) {
+
+          console.log(error);
+
+          this.uploadMessage = 'Firestore save failed';
+        }
+
+      },
+
+      (error) => {
+
+        console.log(error);
+
+        this.uploadMessage = 'Upload failed';
+
+      }
+    );
+  }
+
+  async deleteImage(id: string) {
+
+    const imageDoc = doc(
+      this.firestore,
+      `gallery/${id}`
+    );
+
+    await deleteDoc(imageDoc);
   }
 }

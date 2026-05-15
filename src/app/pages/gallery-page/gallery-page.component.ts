@@ -6,15 +6,18 @@ import {
   collectionData
 } from '@angular/fire/firestore';
 
-import { Observable } from 'rxjs';
-
 @Component({
   selector: 'app-gallery-page',
   templateUrl: './gallery-page.component.html',
   styleUrls: ['./gallery-page.component.css']
 })
 export class GalleryPageComponent {
- galleryItems$: Observable<any[]>;
+
+  galleryItems: any[] = [];
+
+  filteredGallery: any[] = [];
+
+  selectedCategory = 'all';
 
   constructor(
     private firestore: Firestore
@@ -25,11 +28,34 @@ export class GalleryPageComponent {
       'gallery'
     );
 
-    this.galleryItems$ = collectionData(
+    collectionData(
       galleryRef,
       {
         idField: 'id'
       }
-    ) as Observable<any[]>;
+    ).subscribe((data: any[]) => {
+
+      this.galleryItems = data;
+
+      this.filterGallery('all');
+
+    });
+  }
+
+  filterGallery(category: string) {
+
+    this.selectedCategory = category;
+
+    if(category === 'all') {
+
+      this.filteredGallery = this.galleryItems;
+
+    } else {
+
+      this.filteredGallery = this.galleryItems.filter(
+        item => item.category === category
+      );
+
+    }
   }
 }

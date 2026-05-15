@@ -28,18 +28,53 @@
 
     </select>
 
-    <input
-      type="file"
-      (change)="onFileSelected($event)"
-    >
+  <input
+  type="file"
+  #fileInput
+  (change)="onFileSelected($event)"
+>
 
-    <button (click)="uploadImage()">
+    <button (click)="uploadImage(fileInput)">
       Upload Image
     </button>
 
     <small *ngIf="uploadMessage">
       {{ uploadMessage }}
     </small>
+
+  </div>
+
+  <div class="uploaded-section">
+
+    <h2>Uploaded Images</h2>
+
+    <div class="gallery-grid">
+
+      <div
+        class="gallery-card"
+        *ngFor="let item of galleryItems$ | async"
+      >
+
+        <img
+          [src]="item.imageUrl"
+          alt=""
+        >
+
+        <div class="gallery-info">
+
+          <span>
+            {{ item.category }}
+          </span>
+
+          <button (click)="deleteImage(item.id)">
+            Delete
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
 
   </div>
 

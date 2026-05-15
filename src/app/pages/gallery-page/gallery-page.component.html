@@ -10,11 +10,50 @@
 
   </div>
 
+  <div class="filter-buttons">
+
+    <button
+      [class.active]="selectedCategory === 'all'"
+      (click)="filterGallery('all')"
+    >
+      All
+    </button>
+
+    <button
+      [class.active]="selectedCategory === 'bridal'"
+      (click)="filterGallery('bridal')"
+    >
+      Bridal
+    </button>
+
+    <button
+      [class.active]="selectedCategory === 'engagement'"
+      (click)="filterGallery('engagement')"
+    >
+      Engagement
+    </button>
+
+    <button
+      [class.active]="selectedCategory === 'party'"
+      (click)="filterGallery('party')"
+    >
+      Party
+    </button>
+
+    <button
+      [class.active]="selectedCategory === 'hd'"
+      (click)="filterGallery('hd')"
+    >
+      HD Makeup
+    </button>
+
+  </div>
+
   <div class="gallery-grid">
 
     <div
       class="gallery-item"
-      *ngFor="let item of galleryItems$ | async"
+      *ngFor="let item of filteredGallery"
     >
 
       <img
