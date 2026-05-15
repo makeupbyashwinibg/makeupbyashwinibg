@@ -1,1 +1,46 @@
-<p>admin works!</p>
+<section class="admin-page">
+
+  <div class="admin-card">
+
+    <h1>Gallery Upload</h1>
+
+    <p>
+      Upload bridal and makeup portfolio images.
+    </p>
+
+    <select [(ngModel)]="selectedCategory">
+
+      <option value="bridal">
+        Bridal Makeup
+      </option>
+
+      <option value="engagement">
+        Engagement Makeup
+      </option>
+
+      <option value="party">
+        Party Makeup
+      </option>
+
+      <option value="hd">
+        HD Makeup
+      </option>
+
+    </select>
+
+    <input
+      type="file"
+      (change)="onFileSelected($event)"
+    >
+
+    <button (click)="uploadImage()">
+      Upload Image
+    </button>
+
+    <small *ngIf="uploadMessage">
+      {{ uploadMessage }}
+    </small>
+
+  </div>
+
+</section>

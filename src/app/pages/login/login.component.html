@@ -1,0 +1,33 @@
+<section class="login-page">
+
+  <div class="login-card">
+
+    <h1>Admin Login</h1>
+
+    <p>
+      Login to manage gallery uploads and content.
+    </p>
+
+    <input
+      type="email"
+      placeholder="Email"
+      [(ngModel)]="email"
+    >
+
+    <input
+      type="password"
+      placeholder="Password"
+      [(ngModel)]="password"
+    >
+
+    <button (click)="login()">
+      Login
+    </button>
+
+    <small class="error" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </small>
+
+  </div>
+
+</section>
