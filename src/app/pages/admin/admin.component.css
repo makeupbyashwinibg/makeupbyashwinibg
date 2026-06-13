@@ -176,3 +176,119 @@
 
   cursor: pointer;
 }
+
+/* ---------- Tablet ---------- */
+@media (max-width: 992px) {
+  .admin-page {
+    padding: 120px 20px 60px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .admin-card {
+    max-width: 100%;
+    padding: 40px 30px;
+  }
+
+  .admin-card h1,
+  .uploaded-section h2 {
+    font-size: 34px;
+  }
+
+  .uploaded-section {
+    margin-top: 50px;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 768px) {
+  .admin-page {
+    padding: 100px 15px 40px;
+    justify-content: flex-start;
+  }
+
+  .admin-card {
+    padding: 30px 20px;
+    border-radius: 20px;
+  }
+
+  .admin-card h1 {
+    font-size: 30px;
+  }
+
+  .admin-card p {
+    font-size: 14px;
+    margin-bottom: 25px;
+  }
+
+  .admin-card input,
+  .admin-card select,
+  .admin-card button {
+    padding: 14px;
+    font-size: 14px;
+  }
+
+  .uploaded-section {
+    margin-top: 40px;
+  }
+
+  .uploaded-section h2 {
+    font-size: 30px;
+    margin-bottom: 25px;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .gallery-card img {
+    height: 260px;
+  }
+
+  .gallery-info {
+    padding: 15px;
+  }
+
+  .gallery-info button {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+}
+
+/* ---------- Small Mobile ---------- */
+@media (max-width: 480px) {
+  .admin-page {
+    padding: 90px 12px 30px;
+  }
+
+  .admin-card {
+    padding: 24px 16px;
+  }
+
+  .admin-card h1 {
+    font-size: 26px;
+  }
+
+  .uploaded-section h2 {
+    font-size: 26px;
+  }
+
+  .gallery-card img {
+    height: 220px;
+  }
+
+  .gallery-info {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .gallery-info button {
+    width: 100%;
+  }
+}
